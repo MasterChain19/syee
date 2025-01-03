@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORE AI - $FORE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="icon" type="favicon.png" href="favicon.png">
+    <style>
+        /* Reset style */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Global Styles */
+        body, html {
+            height: 100%;
+            font-family: "Space Grotesk", serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-image: url("be.webp");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Navbar container */
+        .navbar {
+            display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 0px; /* Reduced to move navbar upwards even more */
+    position: absolute; /* Change to absolute positioning */
+    top: 20px; /* Adjust to fine-tune the navbar position */
+    z-index: 2;
+    margin-bottom: 30px; /* Space between navbar and content */
+        }
+
+        /* Navbar links */
+        .navbar a {
+            display: inline-block;
+            width: 100px;
+            height: 40px;
+            background-color: transparent;
+            color: white;
+            font-size: 18px;
+            text-decoration: none;
+            text-align: center;
+            line-height: 40px;
+            border: 2px solid #fff;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar a:hover {
+            background: rgba(0%, 0%, 100%, 0.75);
+            border-color: #e600ff;
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgb(221 0 255 / 80%);
+        }
+
+       /* Content Sections */
+        .content-section {
+            display: none;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgb(221 0 255 / 80%);
+            opacity: 0.9;
+            max-width: 800px; /* Menetapkan lebar maksimal */
+            height: auto; /* Pastikan kotak mengikuti konten */
+            margin: 20px auto; /* Memastikan kotak terpusat secara vertikal dan horizontal */
+            display: none; /* Hide all sections by default */
+        }
+
+        .content-section.active {
+            display: block;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(54, 173, 227, 0.7);
+            border-color: #36ade3;
+            opacity: 1;
+            display: block; /* Show active section */
+        }
+
+        /* Logo section */
+        .logo-container {
+            position: absolute;
+            top: 200px; /* Move the logo below the navbar */
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+
+        .logo-container img {
+            width: 30%;
+            height: 30%;
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgb(255 0 192 / 80%);
+            margin-bottom: 20px;
+            top: 20%;
+        }
+
+        .logo-container .description {
+            font-size: 30px;
+            color: #ffffff;
+            animation: fadeInText 2s forwards 1s;
+            letter-spacing: 2px;
+        }
+
+        /* Keyframes for animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInText {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Futuristic effect for text */
+        .description {
+            font-size: 30px;
+            color: #36ade3;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 0 5px rgba(54, 173, 227, 0.7), 0 0 10px rgba(54, 173, 227, 0.6), 0 0 15px rgba(54, 173, 227, 0.5);
+        }
+
+        /* Style for active navbar link */
+        .active {
+            background-color: #ff5733;
+            color: white;
+            box-shadow: 0 0 10px rgba(255, 87, 51, 0.5);
+        }
+
+/* Footer Section */
+.footer {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    position: absolute;
+    bottom: 10px;
+    z-index: 2;
+    background-color: #000000; /* Background color for footer box */
+    padding: 10px 20px;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 0 15px rgba(54, 173, 227, 0.8); /* Glowing effect */
+    border: 1px solid #36ade3; /* Border color matching background */
+    color: #fff;
+    width: 30%;
+    opacity: 70%;
+}
+
+.footer a {
+    font-size: 24px;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer a:hover {
+    color: #36ade3;
+    transform: scale(1.2);
+    box-shadow: 0 0 8px rgba(0, 255, 242, 0.87);
+}
+
+
+        /* Center all text */
+        .content-section h2, .content-section p, .footer a {
+            text-align: center;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .navbar a {
+                width: 80px;
+                font-size: 16px;
+            }
+
+            .content-box {
+                padding: 15px;
+                font-size: 16px;
+            }
+
+            .box-container {
+                width: 95%;
+            }
+        }
+
+        .copy-button {
+        background-color: #cecece9a; /* Warna latar belakang hijau */
+        border: none;
+        border-radius: 8px;
+        padding: 10px 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .copy-button:hover {
+        transform: scale(1.1); /* Memperbesar tombol saat hover */
+        background-color: #5ee7d5; /* Efek hover dengan warna lebih gelap */
+    }
+
+    .copy-button a {
+        color: white; /* Teks berwarna putih */
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 16px;
+        letter-spacing: 1px;
+        transition: color 0.3s ease;
+    }
+
+    .copy-button a:hover {
+        color: #ffeb3b; /* Warna teks berubah saat hover */
+    }
+
+    .copy-button:focus {
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(72, 157, 90, 0.6); /* Menambahkan efek fokus */
+    }
+
+    /* Tambahan untuk responsivitas */
+    @media (max-width: 768px) {
+        .copy-button {
+            padding: 12px 24px;
+            font-size: 18px;
+        }
+    }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="Home" id="homeLink"><i class="fas fa-home"></i> </a>
+        <a href="Aboutus" id="aboutLink"><i class="fas fa-info-circle"></i> </a>
+        <a href="Service" id="servicesLink"><i class="fas fa-cogs"></i> </a>
+        <a href="index.html" id="homeLink"><i class="fa fa-arrow-left"></i> </a>
+    </div>
+
+    <!-- Box Container for Displaying Content -->
+    <div class="box-container">
+        <!-- Content Sections -->
+        <div class="content-section " id="homeContent">
+            <div class="logo-container">
+                <img src="sLogo.png" alt="Logo" width="50%">
+                <div class="description">Welcome to FORE AI!</div>
+                <p>A revolutionary infrastructure designed for seamless collaboration, enabling decentralized agent networks to function autonomously. </p>
+                    <div class="section">
+                        <button class="copy-button">
+                            <a href="start-chat.html" class="chat-link">Chat Bot</a>
+                        </button>
+                    </div>
+            </div>
+        </div>
+
+        <div class="content-section" id="aboutContent">
+            <h2 style="color: white; text-transform: uppercase; font-size: 2rem;">About Us</h2>
+            <p style="color: #d0d0d0; font-size: 1.1rem;">
+                A revolutionary infrastructure designed for seamless collaboration, enabling decentralized agent networks to function autonomously.
+            </p>
+        </div>
+    </div>
+    <div id="aboutContent" class="content-section">
+        <h2>About Us</h2>
+        <p>
+            A revolutionary infrastructure designed for seamless collaboration, enabling decentralized agent networks to function autonomously.</p>
+    </div>
+    
+    <div id="servicesContent" class="content-section">
+        <h2>Our Services</h2>
+        <p>At FORE, we offer cutting-edge services designed to empower innovation and redefine possibilities in the digital space.</p>
+    </div>
+    
+     <!-- Footer Section with Social Media Links -->
+     <div class="footer">
+        <a href="https://t.me/ForeAISolana"><img src="https://ailive.co/src/img/tg.svg" class="white-icon" width="30px"></a>
+        <a href="https://x.com/AI_ForeOfficial"><img src="https://ailive.co/src/img/x.svg" class="white-icon" width="30px"></a>
+        <a href="https://pump.fun/board"><img src="https://ailive.co/src/img/pumpfun.png" width="30px"></a>
+        <a href="https://dexscreener.com/solana"><img src="https://ailive.co/src/img/dex-screener.svg" class="white-icon" width="30px"></a>
+    </div>
+    
+    <style>
+        .footer img {
+            filter: invert(10%) brightness(10000%) contrast(9000%);
+        }
+    </style>
+    
+    
+    <script>
+        // Function to switch between content sections
+        function showContent(sectionId) {
+            // Hide all content sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+    
+            // Show the selected section
+            const selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.classList.add('active');
+            }
+        }
+    
+        // Add event listeners to the navbar links
+        document.getElementById('homeLink').addEventListener('click', function(event) {
+            event.preventDefault();
+            showContent('homeContent');
+        });
+    
+        document.getElementById('aboutLink').addEventListener('click', function(event) {
+            event.preventDefault();
+            showContent('aboutContent');
+        });
+    
+        document.getElementById('servicesLink').addEventListener('click', function(event) {
+            event.preventDefault();
+            showContent('servicesContent');
+        });
+    
+        document.getElementById('contactLink').addEventListener('click', function(event) {
+            event.preventDefault();
+            showContent('contactContent');
+        });
+    
+        // Function to copy the text (button functionality)
+        function copyText() {
+            const textToCopy = "Hackathon Decentralized Agent Networks!";
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => {
+                    alert("Text copied to clipboard!");
+                })
+                .catch(err => {
+                    console.error("Error copying text: ", err);
+                });
+        }
+    
+        // Initially show the home content
+        showContent('homeContent');
+    </script>
+    
+</body>
+</html>

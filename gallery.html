@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Gallery</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #121212;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Navbar container */
+        .navbar {
+            display: flex;
+            justify-content: center;
+            background-color: #2a3a55;
+            padding: 15px 0;
+        }
+
+        /* Individual navbar items in boxes */
+        .navbar-item {
+            background-color: #1e293b;
+            margin: 0 10px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        /* Hover effect for navbar items */
+        .navbar-item:hover {
+            background-color:#38bdf8;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Navbar links */
+        .navbar-item a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+
+        .gallery-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 50px 20px;
+            gap: 20px;
+            margin-top: 70px; /* Account for navbar */
+        }
+
+        .gallery-item {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .gallery-description {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(20, 20, 20, 0.9);
+            padding: 30px 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2);
+            width: 80%;
+            max-width: 700px;
+            transition: opacity 0.3s ease;
+            z-index: 1001;
+        }
+
+        .gallery-description h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #36ade3;
+            letter-spacing: 2px;
+            border-bottom: 2px solid #36ade3;
+            padding-bottom: 10px;
+        }
+
+        .gallery-description p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #ddd;
+            margin-top: 20px;
+            white-space: pre-wrap;
+            opacity: 0;
+        }
+
+        .gallery-description img {
+            width: 50%;
+            border-radius: 10px;
+            margin-top: 20px;
+            max-width: 400px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: 2px solid #36ade3;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .close-btn:hover {
+            background: #36ade3;
+        }
+
+        /* Typing animation */
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+   <!-- Navbar -->
+   <div class="navbar">
+    <div class="navbar-item"><a href="home.html">🏠 Home</a></div>
+    <div class="navbar-item"><a href="start-chat.html">💬 Start Chat</a></div>
+    <div class="navbar-item"><a href="gallery.html">📸 Gallery</a></div>
+    <div class="navbar-item"><a href="about.html">ℹ️ About</a></div>
+</div>
+
+    <div class="gallery-container" id="gallery">
+        <div class="gallery-item" data-title="Rei Ayanami" data-description="This is the description for Image 1. A futuristic concept, with neon elements and sleek design.">
+            <img src="https://play-lh.googleusercontent.com/PVrwZQYjWZnUTiA1unmXA-ybFKDyS0zsu1nPk5O80qtr0gerYJ5YI8pwPZlB7jglQKk" alt="Image 1">
+        </div>
+        <div class="gallery-item" data-title="Ochaco Uraraka" data-description="This is the description for Image 2. Clean, elegant, and modern design principles with a futuristic twist.">
+            <img src="https://i.pinimg.com/474x/cc/b5/b5/ccb5b5220807fcb49771c965d06395c1.jpg" alt="Image 2">
+        </div>
+        <div class="gallery-item" data-title="Asuna Yuuki" data-description="This is the description for Image 3. Truly a masterpiece of art in a digital future.">
+            <img src="https://i.pinimg.com/736x/b4/5e/d0/b45ed056aaeefb2a5a27b28d81714cd5.jpg" alt="Image 3">
+        </div>
+    </div>
+
+    <div class="gallery-description" id="gallery-description">
+        <button class="close-btn" id="close-btn">Close</button>
+        <h2 id="desc-title"></h2>
+        <img id="desc-image" src="" alt="Selected Image">
+        <p id="desc-text"></p>
+    </div>
+
+    <script>
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const descriptionBox = document.getElementById('gallery-description');
+        const descTitle = document.getElementById('desc-title');
+        const descText = document.getElementById('desc-text');
+        const closeButton = document.getElementById('close-btn');
+        const descImage = document.getElementById('desc-image');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const title = item.getAttribute('data-title');
+                const description = item.getAttribute('data-description');
+                const imgSrc = item.querySelector('img').src;
+                
+                descTitle.textContent = title;
+                descText.textContent = ''; // Clear previous text
+                descText.style.opacity = 0;
+                descImage.src = imgSrc; // Set image
+
+                descriptionBox.style.display = 'block';
+                descriptionBox.style.opacity = 1;
+
+                // Typing effect
+                let i = 0;
+                const typingInterval = setInterval(() => {
+                    descText.textContent += description.charAt(i);
+                    descText.style.opacity = 1;
+                    i++;
+                    if (i >= description.length) {
+                        clearInterval(typingInterval);
+                    }
+                }, 50);
+            });
+        });
+
+        closeButton.addEventListener('click', () => {
+            descriptionBox.style.opacity = 0;
+            setTimeout(() => {
+                descriptionBox.style.display = 'none';
+            }, 300); // Wait for fade-out animation
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === descriptionBox) {
+                closeButton.click();
+            }
+        });
+    </script>
+</body>
+</html>

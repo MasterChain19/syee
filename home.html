@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linktree dengan Animasi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Teko:wght@300..700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: "Bebas Neue", serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('https://i.pinimg.com/originals/65/b0/59/65b05933ab0776a765ef40a47564fb80.gif') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* Container untuk menampung semua elemen */
+        .container {
+            position: fixed;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            z-index: 2;
+            padding-left: 20px;
+        }
+
+        /* Style untuk setiap link dengan box */
+        .link-box {
+            margin: 20px 0;
+            padding: 20px 40px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            width: 350px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Efek hover untuk link box */
+        .link-box:hover {
+            transform: translateX(10px);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+        }
+
+        /* Animasi judul di samping link */
+        .link-box .title {
+            margin-right: 20px;
+            font-size: 30px;
+            color: rgb(27, 27, 27);
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        /* Teks dalam link */
+        .link-box a {
+            color: rgb(82, 82, 82);
+            text-decoration: none;
+            font-size: 22px;
+        }
+
+        /* Animasi pada hover untuk judul dan teks */
+        .link-box:hover .title {
+            color: #a7c6d4;
+        }
+
+        /* Animasi untuk link hover */
+        .link-box:hover a {
+            font-weight: bold;
+            color: #36e38c;
+        }
+
+        /* Teks tambahan di samping link di area latar belakang */
+        .background-text {
+            position: absolute;
+            top: 30%;
+            left: 65%;
+            transform: translateX(-50%);
+            color: rgb(17, 17, 17);
+            font-size: 40px;
+            font-weight: bold;
+            text-align: center;
+            opacity: 0.7;
+            width: 100%;
+            z-index: 1;
+        }
+
+        /* Responsif untuk tampilan mobile */
+        @media (max-width: 600px) {
+            .container {
+                padding-left: 10px;
+            }
+
+            .link-box {
+                width: 250px;
+                font-size: 18px;
+            }
+
+            .link-box .title {
+                font-size: 25px;
+            }
+
+            .link-box .description {
+                font-size: 14px;
+            }
+
+            .background-text {
+                font-size: 18px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Teks di area latar belakang -->
+    <div class="background-text">
+        <p>Create With AI</p>
+        <p>Explore my social media profiles and stay connected!</p>
+    </div>
+
+    <div class="container">
+        <!-- Home Link -->
+        <div class="link-box">
+            <div class="title">🏠</div>
+            <a href="index.html">Home</a>
+        </div>
+
+        <!-- Start Chat Link -->
+        <div class="link-box">
+            <div class="title">💬</div>
+            <a href="start-chat.html">Start Chat</a>
+        </div>
+
+        <!-- Gallery Link -->
+        <div class="link-box">
+            <div class="title">📸</div>
+            <a href="gallery.html">Gallery</a>
+        </div>
+
+        <!-- About Link -->
+        <div class="link-box">
+            <div class="title">ℹ️</div>
+            <a href="about.html">About</a>
+        </div>
+    </div>
+
+</body>
+</html>

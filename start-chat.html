@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot AI</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #1e293b;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+       /* Navbar container */
+       .navbar {
+            display: flex;
+            justify-content: center;
+            background-color: #2a3a55;
+            padding: 15px 0;
+        }
+
+        /* Individual navbar items in boxes */
+        .navbar-item {
+            background-color: #1e293b;
+            margin: 0 10px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        /* Hover effect for navbar items */
+        .navbar-item:hover {
+            background-color:#38bdf8;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Navbar links */
+        .navbar-item a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* Chat container styles */
+        .chat-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .container {
+            display: flex;
+            flex: 1;
+            padding: 20px;
+        }
+        .sidebar {
+            width: 25%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-right: 20px;
+        }
+        .sidebar h3 {
+            margin-bottom: 10px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        .sidebar ul li:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+        }
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+        .chat-message {
+            margin-bottom: 10px;
+        }
+        .input-area {
+            display: flex;
+        }
+        .input-area input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            margin-right: 10px;
+            background: #1e293b;
+            color: white;
+            transition: all 0.3s ease-in-out;
+        }
+        .input-area input:focus {
+            outline: none;
+            border-color: #38bdf8;
+            box-shadow: 0 0 5px rgba(56, 189, 248, 0.5);
+        }
+        .input-area button {
+            padding: 10px 15px;
+            border: none;
+            background: #38bdf8;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        .input-area button:hover {
+            background: #0ea5e9;
+        }
+        .social-media img {
+            width: 40px;
+            height: 40px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        #nameInput {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        #nameInput input {
+            font-size: 18px;
+            padding: 15px;
+            width: 100%;
+            max-width: 300px;
+            background: #334155;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+            transition: all 0.3s ease-in-out;
+        }
+        #nameInput input:focus {
+            outline: none;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.7);
+        }
+        #nameInput button {
+            background: #38bdf8;
+            padding: 12px 20px;
+            border-radius: 5px;
+            margin-top: 10px;
+            transition: all 0.3s ease-in-out;
+        }
+        #nameInput button:hover {
+            background: #0ea5e9;
+        }
+        .greeting {
+            color: #38bdf8;
+            font-size: 24px;
+            margin-top: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+     <!-- Navbar -->
+     <div class="navbar">
+        <div class="navbar-item"><a href="index.html">🏠 Home</a></div>
+        <div class="navbar-item"><a href="start-chat.html">💬 Start Chat</a></div>
+    </div>
+    <div class="container">
+        <div class="sidebar">
+            <h3>Chat History</h3>
+            <ul id="chatHistory"></ul>
+            <h3>Options</h3>
+            <ul>
+                <li onclick="sendOption('1')">About the bot</li>
+                <li onclick="sendOption('2')">Social media</li>
+                <li onclick="sendOption('3')">Contact support</li>
+                <li onclick="clearChat()">Clear chat</li>
+            </ul>
+        </div>
+        <div class="chat-area">
+            <div class="chat-messages" id="chatMessages">
+                <div class="chat-message"><strong>AI:</strong> Hello! Enter your name to get started.</div>
+            </div>
+            <div id="nameInput">
+                <input type="text" id="userName" placeholder="Enter your name..." />
+                <button onclick="setUserName()">Start Chat</button>
+            </div>
+            <div class="input-area" id="chatInputArea" style="display: none;">
+                <input type="text" id="userMessage" placeholder="Type your message..." onkeydown="handleEnter(event)">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chatMessages = document.getElementById('chatMessages');
+        const chatHistory = document.getElementById('chatHistory');
+        const userMessageInput = document.getElementById('userMessage');
+        const nameInput = document.getElementById('userName');
+        const nameInputArea = document.getElementById('nameInput');
+        const chatInputArea = document.getElementById('chatInputArea');
+        
+        let userName = '';
+
+       // Expanded list of responses (100 items)
+       const responses = {
+        "hello": "Hello! How can I assist you?",
+            "yes": "What can I help you with?",
+            "Iya": "What can I help you with?",
+            "Hi": "What can I assist you with?",
+            "how are you": "I'm just a bot, but I'm ready to assist!",
+            "goodbye": "Goodbye! Have a great day!",
+            "exit": "All conversations have been deleted!",
+            "default": "Please select an option from the list:",
+            "hello": "Hello! How can I assist you?",
+            "good morning": "Good morning! Hope you have a great day!",
+            "how are you": "I'm just a bot, but I'm ready to assist!",
+            "good night": "Good night! Hope you sleep well.",
+            "who are you": "I am a chatbot designed to assist you with various information.",
+            "how old are you": "I don't have an age like humans, I'm just a bot always ready to help.",
+            "want to eat": "Eating is important! What would you like to eat?",
+            "love": "Love is beautiful, isn't it? Are you in love?",
+            "goodbye": "Goodbye! Have a wonderful day!",
+            "hello world": "Hello world! How can I assist you today?",
+            "thank you": "You're welcome! Happy to help.",
+            "how's the weather": "The weather is sunny and bright today!",
+            "yes please": "Sure! What else can I assist you with?",
+            "no": "Alright, feel free to reach out if you need assistance!",
+            "thanks": "You're welcome! I'm here anytime.",
+        };
+
+        const options = {
+            "1": "This bot is a simple chatbot built using HTML, CSS, and JavaScript.",
+            "2": "<strong>Social media:</strong><br><span class='social-media'><img src='https://ailive.co/src/img/tg.svg' onclick='window.open(\"https://x.com/AI_ForeOfficial\")' alt='Twitter'><img src='https://ailive.co/src/img/x.svg' onclick='window.open(\"https://t.me/ForeAISolana\")' alt='Telegram'><img src='https://ailive.co/src/img/pumpfun.png' onclick='window.open(\"https://pump.fun/board\")' alt='Dexscreener' width='30%'></span>",
+            "3": "To contact support, click  <a href='mailto:support@example.com' target='_blank'>here</a> to send an email.",
+        };
+
+        userMessageInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        });
+
+        function handleEnter(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        function setUserName() {
+            userName = nameInput.value.trim();
+            if (userName) {
+                nameInputArea.style.display = 'none';
+                chatInputArea.style.display = 'flex';
+                addMessage('AI', `Halo <span class="greeting">${userName}</span>, WELCOME! Can I help you?`);
+            }
+        }
+
+        function sendMessage() {
+            const userMessage = userMessageInput.value.trim().toLowerCase();
+            if (userMessage) {
+                addMessage(userName, userMessage);
+                const aiResponse = responses[userMessage] || responses.default;
+                addMessage("AI", aiResponse);
+                userMessageInput.value = "";
+            }
+        }
+
+        function sendOption(option) {
+            const optionText = options[option] || "Option not found.";
+            addMessage("AI", optionText);
+        }
+
+        function addMessage(sender, message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('chat-message');
+            messageDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            if (sender === userName) {
+                const historyItem = document.createElement('li');
+                historyItem.textContent = message;
+                chatHistory.appendChild(historyItem);
+            }
+        }
+
+        function clearChat() {
+            chatMessages.innerHTML = '';
+            chatHistory.innerHTML = '';
+            addMessage("AI", "Hello! Enter your name to get started.");
+        }
+    </script>
+</body>
+</html>
